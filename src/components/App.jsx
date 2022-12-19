@@ -47,7 +47,7 @@ export default function App() {
 //     };
 //   }, []);
 
-  const addContact = contact => {
+  const onAddContact = contact => {
     if (isDuplicate(contact)) {
       return alert(`${contact.name} is already in contacts`);
     }
@@ -55,7 +55,7 @@ export default function App() {
     dispatch(action);
   };
 
-  const removeContact = id => {
+  const onRemoveContact = id => {
   const action = removeContact(id);
     dispatch(action);
   };
@@ -94,10 +94,10 @@ export default function App() {
     <Section>
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={addContact} />
+        <ContactForm onSubmit={onAddContact} />
         <h2>Contacts</h2>
         <Filter value="filter" onChange={handleChange} />
-        <ContactList items={filteredContacts} removeContact={removeContact} />
+        <ContactList items={filteredContacts} removeContact={onRemoveContact} />
       </div>
     </Section>
   );
