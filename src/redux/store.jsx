@@ -15,8 +15,9 @@ import contactReducer from './contacts/contact-slice';
 import filterReducer from './filter/filter-slice';
 
 const contactsPersistConfig = {
-  key: 'root',
+  key: 'contacts',
   storage,
+  blacklist: ['filter'],
 };
 
 const reducer = combineReducers({
