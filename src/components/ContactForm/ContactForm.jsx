@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { Form, Input, FormButton, Label } from './ContactForm.styled';
 import { useState } from 'react';
+import { addContact} from 'redux/contacts/contact-slice';
 
 export default function ContactForm({ onSubmit }) {
   const [state, setState] = useState({
@@ -30,6 +31,15 @@ export default function ContactForm({ onSubmit }) {
 
   const reset = () => {
     setState({ name: '', number: '' });
+  };
+
+  
+  const onAddContact = contact => {
+    if (isDuplicate(contact)) {
+      return alert(`${contact.name} is already in contacts`);
+    }
+    const action = addContact(contact);
+    dispatch(action);
   };
 
   return (

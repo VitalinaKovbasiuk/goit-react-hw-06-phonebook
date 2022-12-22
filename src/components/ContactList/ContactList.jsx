@@ -1,5 +1,26 @@
 import PropTypes from 'prop-types';
 import { List, ListItem, ListDeleteButton } from './ContactList.styled';
+import { removeContact } from 'redux/contacts/contact-slice';
+
+// const onRemoveContact = id => {
+//   const action = removeContact(id);
+//     dispatch(action);
+// };
+  
+const getFilteredContacts = () => {
+    if (!filter) {
+      return contacts;
+    }
+    const normalizeFilter = filter.toLocaleLowerCase();
+    const filterContacts = contacts.filter(({ name }) => {
+      const normalizeName = name.toLocaleLowerCase();
+      const result = normalizeName.includes(normalizeFilter);
+      return result;
+    });
+    return filterContacts;
+  };
+
+  const filteredContacts = getFilteredContacts();
 
 const ContactList = ({ items, removeContact }) => {
   const elements = items.map(({ name, number, id }) => {
