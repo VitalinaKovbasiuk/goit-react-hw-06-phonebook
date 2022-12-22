@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Input } from './Filter.styled';
 import { setFilter } from 'redux/filter/filter-slice';
 import { useDispatch, useSelector } from 'react-redux';
