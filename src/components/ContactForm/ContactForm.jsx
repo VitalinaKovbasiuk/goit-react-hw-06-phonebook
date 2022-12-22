@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 import { Form, Input, FormButton, Label } from './ContactForm.styled';
 import { useState } from 'react';
 import { addContact} from 'redux/contacts/contact-slice';
+import { getContacts } from 'redux/contacts/contact-selectors';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function ContactForm({ onSubmit }) {
   const [state, setState] = useState({
@@ -33,7 +35,7 @@ export default function ContactForm({ onSubmit }) {
     setState({ name: '', number: '' });
   };
 
-  
+  const contacts = useSelector(getContacts);
   const onAddContact = contact => {
     if (isDuplicate(contact)) {
       return alert(`${contact.name} is already in contacts`);
@@ -41,6 +43,12 @@ export default function ContactForm({ onSubmit }) {
     const action = addContact(contact);
     dispatch(action);
   };
+
+ const isDuplicate = ({ name }) => {
+    const result = contacts.find(item => item.name === name);
+    return result;
+  };
+
 
   return (
     <Form onSubmit={handleSubmit}>
