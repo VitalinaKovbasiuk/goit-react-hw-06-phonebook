@@ -1,6 +1,6 @@
 // import PropTypes from 'prop-types';
 import { List, ListItem, ListDeleteButton } from './ContactList.styled';
-import { removeContact } from 'redux/contacts/contact-slice';
+import { deleteContact  } from 'redux/contacts/contact-slice';
 import { getFilter } from 'redux/filter/filter-selectors';
 import { getContacts } from 'redux/contacts/contact-selectors';
  import { useSelector, useDispatch } from 'react-redux';
@@ -46,7 +46,7 @@ const ContactList = () => {
         <p>
           {name}: {number}
         </p>
-        <ListDeleteButton type="button" onClick={() => dispatch(removeContact(id))} >
+        <ListDeleteButton type="button" onClick={() => dispatch(deleteContact (id))} >
           Delete
         </ListDeleteButton>
       </ListItem>
