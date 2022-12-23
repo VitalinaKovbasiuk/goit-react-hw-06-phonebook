@@ -8,17 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getContacts } from "redux/contacts/contact-slice";
 
 export default function ContactForm() {
- const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  
+
   const nameInputId = nanoid();
   const numberInputId = nanoid();
 
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
+  const handleChange = (event) => {
+    const { name, value } = event.currentTarget;
+
     switch (name) {
       case "name":
         setName(value);
@@ -49,18 +50,17 @@ export default function ContactForm() {
       ? alert(`${name} is already in contact`)
       : dispatch(addContact(contact));
 
-    reset();
+    resetSubmit();
   };
 
-
-  const reset = () => {
+  const resetSubmit = () => {
     setName("");
     setNumber("");
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor={nameInputId}>
+    <Form action="" onSubmit={handleSubmit}>
+      <Label htmlFor=''>
         Name:
         <Input
           id={nameInputId}
@@ -74,7 +74,7 @@ export default function ContactForm() {
           required
         />
       </Label>
-      <Label>
+      <Label htmlFor=''>
         Number:
         <Input
           id={numberInputId}
@@ -94,5 +94,7 @@ export default function ContactForm() {
 }
 
 ContactForm.prototypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

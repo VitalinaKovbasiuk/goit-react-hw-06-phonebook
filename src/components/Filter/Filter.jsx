@@ -1,17 +1,17 @@
 // import PropTypes from 'prop-types';
 import { Input } from './Filter.styled';
-import { setFilter } from 'redux/filter/filter-slice';
+import { setFilter } from 'redux/contacts/contact-slice';
 import { useDispatch, useSelector } from 'react-redux';
-// import { setFilter }  from 'redux/filter/filter-slice';
-import { getFilter } from 'redux/filter/filter-selectors';
+import { getFilter } from 'redux/contacts/contact-slice';
 
-const Filter = () => {
+export default function Filter () {
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
-  
+
   const onChange = e => {
-  dispatch(setFilter(e.currentTarge));
-};
+    dispatch(setFilter(e.target.value));
+  };
+
   return (
     <label>
       <Input
@@ -24,4 +24,3 @@ const Filter = () => {
   );
 }
 
-export default Filter;

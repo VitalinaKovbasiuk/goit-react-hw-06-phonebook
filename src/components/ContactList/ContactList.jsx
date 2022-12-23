@@ -1,33 +1,12 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { List, ListItem, ListDeleteButton } from './ContactList.styled';
 import { deleteContact  } from 'redux/contacts/contact-slice';
-import { getFilter } from 'redux/filter/filter-selectors';
-import { getContacts } from 'redux/contacts/contact-selectors';
- import { useSelector, useDispatch } from 'react-redux';
 
+import { getContacts, getFilter } from 'redux/contacts/contact-slice';
+import { useDispatch, useSelector } from "react-redux";
 
-const ContactList = () => {
-//   const getFilteredContacts = () => {
-//   const filter = useSelector(getFilter);
-//   const contacts = useSelector(getContacts);
-// };
-//     if (!filter) {
-//       return contacts;
-//     }
-//     const normalizeFilter = filter.toLocaleLowerCase();
-//     const filterContacts = contacts.filter(({ name }) => {
-//       const normalizeName = name.toLocaleLowerCase();
-//       const result = normalizeName.includes(normalizeFilter);
-//       return result;
-//     });
-//     return filterContacts;
-//   };
-
-//     const onRemoveContact = id => {
-//   const action = removeContact(id);
-//     dispatch(action);
-  
-   const dispatch = useDispatch();
+export default function ContactList() {
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filtered = useSelector(getFilter);
 
@@ -39,10 +18,17 @@ const ContactList = () => {
   };
 
   const filteredContacts = findContacts();
-  
-  const elements = filteredContacts.map(({ name, number, id }) => {
-    return (
-      <ListItem key={id}>
+
+  return (
+    <List>
+      {filteredContacts.map(
+        ({
+          id,
+          name,
+          number,
+        }) => {
+          return (
+            <ListItem key={id}>
         <p>
           {name}: {number}
         </p>
@@ -50,11 +36,23 @@ const ContactList = () => {
           Delete
         </ListDeleteButton>
       </ListItem>
-    );
-  });
-  return <List>{elements}</List>;
-};
+          );
+        }
+      )}
+    </List>
+  );
+}
 
-export default ContactList;
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      phoneNumber: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
+  deleteContact: PropTypes.func,
+};
+  
 
 
